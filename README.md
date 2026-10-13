@@ -1,39 +1,65 @@
 # Desa Buntet NLP Classifier
 
-Sistem Informasi Pelayanan Masyarakat Desa Buntet dengan Klasifikasi Teks Naive Bayes untuk Penelitian Skripsi.
+Sistem Informasi Pelayanan Masyarakat Desa Buntet dengan klasifikasi teks berbasis Naive Bayes untuk mendukung pengelolaan layanan masyarakat secara lebih terstruktur.
 
 ## Deskripsi
 
-Proyek ini dikembangkan untuk mendukung sistem pelayanan masyarakat di Desa Buntet dengan memanfaatkan teknologi klasifikasi teks berbasis algoritma Naive Bayes. Sistem ini bertujuan untuk membantu mengelompokkan berbagai jenis pengaduan, permintaan, atau kebutuhan masyarakat menjadi kategori yang lebih terstruktur dan mudah dikelola.
+Proyek ini dirancang untuk mengklasifikasikan teks pengaduan, permohonan, saran, dan informasi masyarakat desa ke dalam kategori tertentu menggunakan metode Naive Bayes. Tujuan utamanya adalah untuk membantu pengelolaan pelayanan masyarakat di Desa Buntet agar lebih cepat, terorganisir, dan mudah dipantau.
 
-## Fitur Utama
+## Fitur utama
 
-- Input teks pengaduan atau permintaan masyarakat
-- Klasifikasi teks otomatis menggunakan Naive Bayes
-- Pengelompokan data berdasarkan kategori layanan
-- Tampilan hasil klasifikasi yang mudah dibaca
-- Cocok untuk kebutuhan penelitian dan pengembangan sistem informasi pelayanan desa
+- Klasifikasi teks otomatis dari input masyarakat
+- Kategori data: pengaduan, permohonan, informasi, saran
+- Hasil prediksi dengan tingkat kepercayaan
+- Antarmuka web sederhana berbasis Flask
+- Dapat dikembangkan menjadi sistem layanan masyarakat yang lebih lengkap
 
-## Teknologi yang Digunakan
+## Teknologi yang digunakan
 
-- Python
-- Naive Bayes
-- Preprocessing teks
-- Pandas / NumPy
-- Scikit-learn
-- Framework backend atau UI sesuai kebutuhan proyek (sesuaikan dengan implementasi yang Anda gunakan)
+- Python 3
+- Flask
+- scikit-learn
+- pandas
+- numpy
+- joblib
 
-> Catatan: sesuaikan bagian teknologi ini dengan stack yang benar pada proyek Anda jika sudah ada framework atau library tambahan yang digunakan.
+## Struktur proyek
 
-## Persyaratan Sistem
+```text
+desa-buntet-nlp-classifier/
+├── README.md
+├── requirements.txt
+├── app.py
+├── config.py
+├── .gitignore
+├── data/
+│   └── train_data.csv
+├── model/
+│   └── README.md
+├── src/
+│   ├── __init__.py
+│   ├── preprocessing.py
+│   ├── train_model.py
+│   └── predict.py
+├── static/
+│   └── css/
+│       └── style.css
+├── templates/
+│   └── index.html
+├── tests/
+│   └── test_model.py
+└── .venv/
+```
 
-- Python 3.10 atau versi yang lebih baru
+## Persyaratan sistem
+
+- Python 3.10+
 - pip
-- Virtual environment (disarankan)
+- virtual environment (direkomendasikan)
 
 ## Instalasi
 
-1. Clone repositori ini
+1. Clone repositori
 
 ```bash
 git clone https://github.com/faisindrafauziii-dot/desa-buntet-nlp-classifier.git
@@ -49,77 +75,56 @@ source .venv/bin/activate
 # .venv\Scripts\activate
 ```
 
-3. Instal dependensi
+3. Install dependensi
 
 ```bash
 pip install -r requirements.txt
 ```
 
-> Jika file `requirements.txt` belum dibuat, Anda dapat membuatnya sesuai dengan library yang dipakai oleh proyek, misalnya:
->
-> ```txt
-> numpy
-> pandas
-> scikit-learn
-> flask
-> ```
-
-## Menjalankan Aplikasi
+## Menjalankan aplikasi
 
 ```bash
 python app.py
 ```
 
-Jika proyek Anda menggunakan Streamlit, bisa juga dijalankan dengan:
+Aplikasi akan berjalan di:
+
+- http://localhost:5000/
+
+## Contoh penggunaan
+
+Gunakan endpoint berikut untuk memprediksi kategori teks:
 
 ```bash
-streamlit run app.py
+http://localhost:5000/classify?text=saya+minta+bantuan+perbaikan+jalan
 ```
 
-> Sesuaikan perintah di atas sesuai dengan penerapan aplikasi Anda.
+Contoh hasil:
 
-## Struktur Proyek
-
-```text
-desa-buntet-nlp-classifier/
-├── README.md
-├── requirements.txt
-├── app.py
-├── data/
-├── model/
-├── notebooks/
-├── templates/
-├── static/
-└── src/
+```json
+{
+  "text": "saya minta bantuan perbaikan jalan",
+  "category": "permohonan",
+  "confidence": 0.92
+}
 ```
 
-## Cara Penggunaan
+## Dataset
 
-1. Jalankan aplikasi pada lingkungan lokal.
-2. Masukkan teks yang akan diklasifikasikan.
-3. Sistem akan memproses teks dan mengelompokkannya berdasarkan kategori layanan.
-4. Lihat hasil klasifikasi dan gunakan untuk analisis atau pengambilan keputusan.
+Dataset contoh ada di folder `data/train_data.csv` dan masih dapat dikembangkan sesuai data asli desa.
 
-## Tujuan Proyek
+## Langkah pengembangan selanjutnya
 
-Tujuan utama dari proyek ini adalah membantu pengelolaan dan analisis pelayanan masyarakat secara lebih cepat, rapi, dan terstruktur dengan memanfaatkan teknik klasifikasi teks.
-
-## Roadmap
-
-- [ ] Persiapan dataset dan preprocessing teks
-- [ ] Pelatihan model Naive Bayes
-- [ ] Evaluasi performa model
-- [ ] Integrasi ke sistem informasi desa
-- [ ] Peningkatan fitur dan dokumentasi
+- [ ] Menambah dataset nyata dari masyarakat desa
+- [ ] Melakukan evaluasi model dengan data uji
+- [ ] Menambahkan fitur dashboard admin
+- [ ] Menyimpan hasil klasifikasi ke database
+- [ ] Mengintegrasikan dengan sistem informasi desa
 
 ## Kontribusi
 
-Kontribusi sangat terbuka untuk pengembangan lebih lanjut. Anda dapat membuat branch baru, melakukan perubahan, dan membuka pull request.
+Anda dapat menambah data, memperbaiki preprocessing, atau menyesuaikan kategori sesuai kebutuhan lapangan.
 
-## Lisensi
+## Catatan
 
-Proyek ini dibuat untuk kebutuhan penelitian dan pengembangan. Silakan sesuaikan lisensi jika akan dipublikasikan secara luas.
-
-## Kontak
-
-Untuk pertanyaan atau kolaborasi, Anda dapat menghubungi pengembang melalui akun GitHub atau media komunikasi yang tersedia.
+Project ini masih dalam tahap starter/demo. Untuk proyek final yang lebih siap dipakai, diperlukan dataset asli, validasi model, dan integrasi dengan backend/database yang lebih lengkap.

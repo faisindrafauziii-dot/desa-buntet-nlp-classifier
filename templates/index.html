@@ -3,36 +3,48 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Desa Buntet - NLP Classifier Demo</title>
+    <title>Desa Buntet NLP Classifier</title>
     <link rel="stylesheet" href="/static/css/style.css">
   </head>
   <body>
     <div class="container">
-      <h1>Desa Buntet - NLP Classifier</h1>
-      <form id="form">
-        <label for="text">Masukkan teks:</label>
-        <textarea id="text" rows="4" placeholder="Contoh: air bersih tidak lancar"></textarea>
-        <button type="submit">Klasifikasikan</button>
-      </form>
+      <div class="card hero">
+        <h1>Desa Buntet NLP Classifier</h1>
+        <p>Deteksi kategori kebutuhan masyarakat desa berdasarkan teks input.</p>
+      </div>
 
-      <div id="result" class="card" style="display:none">
-        <h3>Hasil</h3>
-        <p id="category"></p>
-        <p id="confidence"></p>
+      <div class="card form-card">
+        <form id="classification-form">
+          <label for="text">Masukkan teks pengaduan / permohonan / saran</label>
+          <textarea id="text" rows="5" placeholder="Contoh: saya minta bantuan perbaikan jalan di RT 03"></textarea>
+          <button type="submit">Klasifikasikan</button>
+        </form>
+      </div>
+
+      <div id="result" class="card result-card" style="display:none;">
+        <h2>Hasil Klasifikasi</h2>
+        <p><strong>Kategori:</strong> <span id="category"></span></p>
+        <p><strong>Confidence:</strong> <span id="confidence"></span></p>
       </div>
     </div>
 
     <script>
-      const form = document.getElementById('form')
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault()
-        const text = encodeURIComponent(document.getElementById('text').value)
-        const resp = await fetch(`/classify?text=${text}`)
-        const data = await resp.json()
-        document.getElementById('category').textContent = 'Kategori: ' + (data.category || data.error)
-        document.getElementById('confidence').textContent = 'Confidence: ' + (data.confidence ?? '')
-        document.getElementById('result').style.display = 'block'
-      })
+      const form = document.getElementById('classification-form');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const text = document.getElementById('text').value.trim();
+        if (!text) {
+          alert('Teks tidak boleh kosong.');
+          return;
+        }
+
+        const response = await fetch(`/classify?text=${encodeURIComponent(text)}`);
+        const data = await response.json();
+
+        document.getElementById('category').textContent = data.category || data.error || '-';
+        document.getElementById('confidence').textContent = data.confidence ? `${data.confidence}` : '-';
+        document.getElementById('result').style.display = 'block';
+      });
     </script>
   </body>
 </html>

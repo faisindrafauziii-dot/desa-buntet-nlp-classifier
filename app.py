@@ -7,6 +7,10 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.get("/health")
+def health():
+    return jsonify({"status": "ok", "project": "desa-buntet-nlp-classifier"})
+
 @app.get("/classify")
 def classify():
     text = request.args.get("text", "")
