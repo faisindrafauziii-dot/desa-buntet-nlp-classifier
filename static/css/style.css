@@ -1,0 +1,5 @@
+body { font-family: Arial, sans-serif; background:#f7f7f7; }
+.container { max-width:700px; margin:40px auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+textarea { width:100%; }
+button { margin-top:8px; padding:8px 12px }
+.card { margin-top:12px; padding:12px; background:#fafafa; border-radius:6px }

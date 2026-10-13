@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Desa Buntet - NLP Classifier Demo</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Desa Buntet - NLP Classifier</h1>
+      <form id="form">
+        <label for="text">Masukkan teks:</label>
+        <textarea id="text" rows="4" placeholder="Contoh: air bersih tidak lancar"></textarea>
+        <button type="submit">Klasifikasikan</button>
+      </form>
+
+      <div id="result" class="card" style="display:none">
+        <h3>Hasil</h3>
+        <p id="category"></p>
+        <p id="confidence"></p>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById('form')
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const text = encodeURIComponent(document.getElementById('text').value)
+        const resp = await fetch(`/classify?text=${text}`)
+        const data = await resp.json()
+        document.getElementById('category').textContent = 'Kategori: ' + (data.category || data.error)
+        document.getElementById('confidence').textContent = 'Confidence: ' + (data.confidence ?? '')
+        document.getElementById('result').style.display = 'block'
+      })
+    </script>
+  </body>
+</html>
