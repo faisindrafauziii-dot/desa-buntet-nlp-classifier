@@ -8,4 +8,4 @@ def test_train_creates_pipeline(tmp_path):
 
     pipeline = train_model.train(data_path=str(fp), model_path=str(model_path))
     assert hasattr(pipeline, 'predict')
-    assert pipeline.predict(["hello world"]).size > 0
+    assert pipeline['model'].predict(["hello world"]).size > 0
